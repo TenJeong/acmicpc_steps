@@ -32,27 +32,13 @@ int main(){
             }
         }
 
-        switch(list.size()){
-            case 0:
-                cout<<"0\n";
-                break;
-            case 1:
-                // 의상 개수와 같음
-                cout<<list.begin()->second<<'\n';
-                break;
-            default:
-                int count = 1;
-                for(auto mem : list){
-                    // 의상을 착용하지 않았을 경우를 더해서 계산
-                    count *= mem.second + 1;
-                }
-                // 모든 의상을 입지 않았을 경우 제외
-                count -= 1;
-                cout<<count<<'\n';
+        int count = 1;
+        for(auto mem : list){
+            count *= mem.second + 1;
         }
+        count -= 1;
+        cout<<count<<'\n';
     }
-
-    if(t == 0) cout<<'0';
 
     return 0;
 }
