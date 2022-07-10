@@ -8,7 +8,7 @@ int visited[9] = {0};
 int n, m;
 
 void find(int start, int count){
-    if(count == m){ // m ê°œë¥¼ ì „ë¶€ ì„ íƒí–ˆë‹¤ë©´ ì¶œë ¥
+    if(count == m){ // m °³¸¦ ÀüºÎ ¼±ÅÃÇß´Ù¸é Ãâ·Â
         for(int i = 0; i < m; i++){
             cout<<arr[i]<<' ';
         }
@@ -17,11 +17,11 @@ void find(int start, int count){
     }
 
     for(int i = start; i <= n; i++){
-        if(visited[i] == 0){    // ië¥¼ ì„ íƒí•˜ì§€ ì•Šì•˜ë‹¤ë©´
-            visited[i] = 1;     // ië¥¼ ì„ íƒí•¨
-            arr[count] = i;     // ì¶œë ¥ ëª©ë¡ì— ë„£ìŒ
-            find(i+1,count+1);  // ë‹¤ìŒ ìˆ«ìë¥¼ ì„ íƒí•¨
-            visited[i] = 0;     // i ì„ íƒì„ ì·¨ì†Œí•¨
+        if(visited[i] == 0){    // i¸¦ ¼±ÅÃÇÏÁö ¾Ê¾Ò´Ù¸é
+            visited[i] = 1;     // i¸¦ ¼±ÅÃÇÔ
+            arr[count] = i;     // Ãâ·Â ¸ñ·Ï¿¡ ³ÖÀ½
+            find(i+1,count+1);  // ´ÙÀ½ ¼ıÀÚ¸¦ ¼±ÅÃÇÔ
+            visited[i] = 0;     // i ¼±ÅÃÀ» Ãë¼ÒÇÔ
         }
     }
 }
