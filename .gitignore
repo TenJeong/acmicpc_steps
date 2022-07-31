@@ -5,3 +5,5 @@
 .vscode/
 *.exe
 *.dSYM
+
+tempCodeRunnerFile.cpp
