@@ -3,7 +3,7 @@
 using namespace std;
 
 int n, m;
-long long dp[1025][1025];
+int dp[1025][1025];
 
 int main(){
 
