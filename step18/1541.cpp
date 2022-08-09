@@ -10,38 +10,29 @@ int main(){
     string query;
     cin>>query;
 
-    int numA = 0, numB = 0;
+    int answer = 0;
     // '-'가 나오기 전까지의 모든 수를 더해주고,
     // '-'이후의 수는 모두 빼는 수에 더해준다.
     // 즉, 빼는 수를 극대화 한다.
 
     bool isMinus = false;
     int temp = 0;
-    for(int i = 0; i < query.size(); i++){
-        switch(query[i]){
-            case '+':
-                if(isMinus) numB += temp;
-                else numA += temp;
-                temp = 0;
-                break;
-            case '-':
-                if(isMinus) numB += temp;
-                else numA += temp;
-                temp = 0;
-                isMinus = true;
-                break;
-            default:
-                temp = temp * 10 + (query[i] - '0');
-                break;
+    for(int i = 0; i <= query.size(); i++){
+        // 문자열의 끝이거나 연산자가 나오면 저장한 수를 계산한다.
+        if(query[i] == '-' || query[i] == '+' || i == query.size()){
+            if(isMinus) answer -= temp;
+            else answer += temp;
+            temp = 0;
         }
+        // 숫자가 오면 수를 계산해서 저장한다.
+        else{
+            temp = temp * 10 + (query[i] - '0');
+        }
+        // '-'가 나온 이후의 수는 모두 뺄셈을 한다.
+        if(query[i] == '-') isMinus = true;
     }
 
-    if(temp != 0){
-        if(isMinus) numB += temp;
-        else numA += temp;
-    }
-
-    cout<<numA - numB;
+    cout<<answer;
 
     return 0;
 }
