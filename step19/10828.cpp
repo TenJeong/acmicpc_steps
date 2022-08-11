@@ -1,39 +1,39 @@
 #include <iostream>
 #include <vector>
+#define MAX_NUM 10000
 
 using namespace std;
 
 class MyStack{
 
 private:
-    vector<int> content;
+    int content[MAX_NUM];
+    int content_size = 0;
 
 public:
     void push(int x){
-        content.push_back(x);
+        content[content_size++] = x;
     }
 
     int top(){
-        if(content.size() <= 0) return -1;
+        if(content_size == 0) return -1;
 
-        int num_pop = content.back();
-
-        return num_pop;
+        return content[content_size-1];
     }
 
     int pop(){
-        int cur_top = top();
-        if(cur_top != -1) content.pop_back();
+        if(content_size == 0) return -1;
 
-        return cur_top;
+        return content[--content_size];
     }
 
     int size(){
-        return content.size();
+        return content_size;
     }
 
     int empty(){
-        if(content.empty()) return 1;
+        if(content_size == 0) return 1;
+
         return 0;
     }
 
