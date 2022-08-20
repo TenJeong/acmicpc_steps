@@ -3,11 +3,6 @@
 
 using namespace std;
 
-typedef struct docprint{
-    int orderNum; // 초기 상태에서의 순서
-    int priority; // 중요도
-} docPrint;
-
 int main(){
 
     cin.tie(NULL);
@@ -20,46 +15,35 @@ int main(){
         int n, m;
         cin>>n>>m;
 
-        int priorCount[10]; // 중요도별 남은 문서 개수
-        int popCount = 1; // pop 수행 횟수
-        for(int i = 0; i < 10; i++) priorCount[i] = 0;
+        int popCount = 1; // pop 순서 count
 
-        queue<docPrint> myQueue;
+        queue< pair<int, int> > docQueue; // 초기상태대로의 큐, 순서 및 중요도 
+        priority_queue<int> priQueue; // 정렬된 중요도
 
         for(int i = 0; i < n; i++){
             int pri;
             cin>>pri;
 
-            priorCount[pri]++;
-            docPrint doc;
-            doc.orderNum = i; doc.priority = pri;
-            myQueue.push(doc); // {초기 상태에서의 순서, 중요도}
+            docQueue.push(make_pair(i, pri));
+            priQueue.push(pri);
         }
 
-        while(!myQueue.empty()){
-            bool isPopable = true;
-            // 중요도가가 높은 것이 남았는지 확인
-            for(int i = 9; i > myQueue.front().priority; i--){
-                if(priorCount[i] != 0){
-                    isPopable = false;
-                    break;
-                }
+        while(!docQueue.empty()){
+            // 출력을 시도하는 문서의 우선순위와 현재 가장 큰 우선 순위를 비교함
+            // 더 큰 우선순위가 있을 경우 큐에 다시 넣음
+            if(docQueue.front().second < priQueue.top()){
+                docQueue.push(docQueue.front());
+                docQueue.pop();
             }
-            // 중요도가 높은 것이 없다면 pop
-            if(isPopable){
-                priorCount[myQueue.front().priority]--;
-                // 찾던 번호를 pop 했다면 pop 순서를 출력하고 더 이상 진행하지 않음
-                if(myQueue.front().orderNum == m){
+            // 더 큰 우선순위가 없다면 pop
+            else{
+                if(docQueue.front().first == m){
                     cout<<popCount<<'\n';
                     break;
                 }
-                myQueue.pop();
                 popCount++;
-            }
-            // 중요도가 더 높은 것이 있다면 큐의 뒤에 다시 넣어줌
-            else{
-                myQueue.push(myQueue.front());
-                myQueue.pop();
+                docQueue.pop();
+                priQueue.pop();
             }
         }
     }
