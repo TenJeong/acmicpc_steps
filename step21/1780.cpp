@@ -15,51 +15,28 @@ void dnc(int x, int y, int length){
         return ;
     }
 
-    bool isMinusOne = true, isZero = true, isOne = true;
+    int startNum = numMAT[x][y];
 
     for(int i = x; i < x + length; i++){
         for(int j = y; j < y + length; j++){
-            // 사각형 범위 내를 검사해서 해당 숫자 외의 값은 false
-            if(numMAT[i][j] == -1){
-                isZero = false;
-                isOne = false;
+            // 다른 수가 존재하면 9개의 사각형으로 나누어서 다시 계산
+            if(!(i == x && j == y) && numMAT[i][j] != startNum){
+                dnc(x, y, length / 3);
+                dnc(x, y + length / 3, length / 3);
+                dnc(x, y + length * 2 / 3, length / 3);
+                dnc(x + length / 3, y, length / 3);
+                dnc(x + length / 3, y + length / 3, length / 3);
+                dnc(x + length / 3, y + length * 2 / 3, length / 3);
+                dnc(x + length * 2 / 3, y, length / 3);
+                dnc(x + length * 2 / 3, y + length / 3, length / 3);
+                dnc(x + length * 2 / 3, y + length * 2 / 3, length / 3);
+                return;
             }
-            else if(numMAT[i][j] == 0){
-                isMinusOne = false;
-                isOne = false;
-            }
-            else if(numMAT[i][j] == 1){
-                isMinusOne = false;
-                isZero = false;
-            }
-        }
-        
-        // 전부 false라면 두 개 이상의 수가 존재함
-        // 따라서 9개의 사각형으로 나누어서 다시 계산
-        if(!isMinusOne && !isZero && !isOne){
-            dnc(x, y, length / 3);
-            dnc(x, y + length / 3, length / 3);
-            dnc(x, y + length * 2 / 3, length / 3);
-            dnc(x + length / 3, y, length / 3);
-            dnc(x + length / 3, y + length / 3, length / 3);
-            dnc(x + length / 3, y + length * 2 / 3, length / 3);
-            dnc(x + length * 2 / 3, y, length / 3);
-            dnc(x + length * 2 / 3, y + length / 3, length / 3);
-            dnc(x + length * 2 / 3, y + length * 2 / 3, length / 3);
-            return;
         }
     }
 
-    // 하나의 숫자만 존재한다면 해당 숫자를 1개 count함
-    if(isMinusOne){
-        numCount[0]++;
-    }
-    else if(isZero){
-        numCount[1]++;
-    }
-    else if(isOne){
-        numCount[2]++;
-    }
+    // 모두 같다면 해당 수 count
+    numCount[startNum + 1]++;
 }
 
 int main(){
