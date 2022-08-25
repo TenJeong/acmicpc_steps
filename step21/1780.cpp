@@ -21,15 +21,11 @@ void dnc(int x, int y, int length){
         for(int j = y; j < y + length; j++){
             // 다른 수가 존재하면 9개의 사각형으로 나누어서 다시 계산
             if(!(i == x && j == y) && numMAT[i][j] != startNum){
-                dnc(x, y, length / 3);
-                dnc(x, y + length / 3, length / 3);
-                dnc(x, y + length * 2 / 3, length / 3);
-                dnc(x + length / 3, y, length / 3);
-                dnc(x + length / 3, y + length / 3, length / 3);
-                dnc(x + length / 3, y + length * 2 / 3, length / 3);
-                dnc(x + length * 2 / 3, y, length / 3);
-                dnc(x + length * 2 / 3, y + length / 3, length / 3);
-                dnc(x + length * 2 / 3, y + length * 2 / 3, length / 3);
+                for(int k = 0; k < 3; k++){
+                    for(int l = 0; l < 3; l++){
+                        dnc(x + length * k / 3, y + length * l / 3, length / 3);
+                    }
+                }
                 return;
             }
         }
