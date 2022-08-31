@@ -6,4 +6,6 @@
 *.exe
 *.dSYM
 
+.DS_Store
+
 tempCodeRunnerFile.cpp
